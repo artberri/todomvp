@@ -1,2 +1,2 @@
-export * from './storage.mock';
-export * from './test.seed';
+export * from './views';
+export * from './infrastructure';

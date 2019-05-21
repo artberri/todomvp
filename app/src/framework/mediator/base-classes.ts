@@ -11,7 +11,7 @@ export abstract class SimpleCommand extends SimpleQuery {}
 export abstract class QueryHandler<TInput, TOutput> {
     public readonly queryName: string;
 
-    constructor(query: new () => Query<TInput>) {
+    constructor(query: new (payload: TInput) => Query<TInput>) {
         this.queryName = query.name;
     }
 

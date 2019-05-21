@@ -4,8 +4,9 @@ import {
     TodoRepository,
     StoragePort,
     GetActiveTodosQueryHandler,
-    GetCompletedTodosQueryHandler
-} from './application';
+    GetCompletedTodosQueryHandler,
+    AddTodoCommandHandler
+} from './model';
 
 export const bootstrap = (storageImplementation: Type<StoragePort>): Mediator => {
     const injector = new Injector();
@@ -16,6 +17,7 @@ export const bootstrap = (storageImplementation: Type<StoragePort>): Mediator =>
     mediator.registerHandler(GetAllTodosQueryHandler);
     mediator.registerHandler(GetActiveTodosQueryHandler);
     mediator.registerHandler(GetCompletedTodosQueryHandler);
+    mediator.registerHandler(AddTodoCommandHandler);
 
     return mediator;
 };

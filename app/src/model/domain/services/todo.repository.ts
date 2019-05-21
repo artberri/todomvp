@@ -8,13 +8,6 @@ export class TodoRepository {
 
   constructor(private readonly storage: StoragePort) {
     this._todos = this.storage.getTodos();
-    /*let persistedTodos = JSON.parse(localStorage.getItem('todos') || '[]');
-    // Normalize back into classes
-    this._todos = persistedTodos.map( (todo: {_title: String, completed: Boolean}) => {
-      let ret = new Todo(todo._title);
-      ret.completed = todo.completed;
-      return ret;
-    });*/
   }
 
   public getAll(): Todo[] {

@@ -11,8 +11,9 @@ export class Todo {
     return this._completed;
   }
 
-  constructor(title: string) {
+  constructor(title: string, completed: boolean = false) {
     this._title = title.trim();
+    this._completed = completed;
   }
 
   public complete(): void {
