@@ -1,13 +1,18 @@
 // tslint:disable:ban-types
 import 'reflect-metadata';
 import { Type } from './types';
-import { IServiceData } from './interfaces';
+
+export interface IServiceData {
+  implementation?: Type<any>;
+  tokens?: any[];
+  instance?: any;
+  isSingleton: boolean;
+}
 
 export class Injector {
-  private readonly _container: Map<string, IServiceData> = new Map<string, IServiceData>();
-  private readonly _singletons: Map<string, any> = new Map<string, any>();
+  private static readonly _container: Map<string, IServiceData> = new Map<string, IServiceData>();
 
-  public register<T>(implementation: Type<T>, abstraction?: Function): void {
+  public static register<T>(implementation: Type<T>, abstraction?: Function, isSingleton: boolean = false): void {
     const registerKey = abstraction ? abstraction.name : implementation.name;
 
     if (this._container.has(registerKey)) {
@@ -17,27 +22,55 @@ export class Injector {
     const tokens = Reflect.getMetadata('design:paramtypes', implementation) || [];
     this._container.set(registerKey, {
       implementation,
-      tokens
+      tokens,
+      isSingleton
     });
   }
 
-  public resolve<T>(target: Function): T {
-    const registerKey = target.name;
+  public static registerSingleton<T>(implementation: Type<T>, abstraction?: Function): void {
+    this.register(implementation, abstraction, true);
+  }
 
-    const registeredInstance = this._singletons.get(registerKey);
-    if (registeredInstance) {
-      return registeredInstance;
+  public static registerInstance<T>(instance: T, abstraction: Function): void {
+    const registerKey = abstraction.name;
+
+    if (this._container.has(registerKey)) {
+      throw new Error('Class already registered for: ' + registerKey);
     }
+
+    this._container.set(registerKey, {
+      instance,
+      isSingleton: true
+    });
+  }
+
+  public static resolve<T>(abstraction: Function): T {
+    const registerKey = abstraction.name;
 
     const serviceData = this._container.get(registerKey);
     if (!serviceData) {
       throw new Error('Class not registered for: ' + registerKey);
     }
 
+    if (serviceData.instance) {
+      return serviceData.instance;
+    }
+
+    if (!serviceData.tokens || !serviceData.implementation) {
+      throw new Error('Class for: ' + registerKey + ' is not properly registered');
+    }
+
     const injections = serviceData.tokens.map((token: Type<any>) => this.resolve<any>(token));
     const newClassInstance = new serviceData.implementation(...injections);
-    this._singletons.set(registerKey, newClassInstance);
+
+    if (serviceData.isSingleton) {
+      serviceData.instance = newClassInstance;
+    }
 
     return newClassInstance;
+  }
+
+  public static reset(): void {
+    this._container.clear();
   }
 }

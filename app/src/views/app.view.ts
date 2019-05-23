@@ -1,8 +1,8 @@
 import { Todo } from '../model';
-import { IAppPresenter, TodoFilterType } from '../presenters';
+import { AppPresenter, TodoFilterType } from '../presenters';
 
 export abstract class AppView {
-  protected presenter!: IAppPresenter;
+  protected presenter!: AppPresenter;
 
   public abstract setTodos(todos: Todo[]): void;
   public abstract setFilter(filter: TodoFilterType): void;

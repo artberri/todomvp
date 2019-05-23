@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "todomvp-core",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,8 +9,16 @@
     "test": "jest",
     "coverage": "jest --coverage"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Alberto Varela",
+    "email": "alberto@berriart.com",
+    "url": "http://www.berriart.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/artberri/todomvp"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^24.0.13",
     "jest": "^24.8.0",

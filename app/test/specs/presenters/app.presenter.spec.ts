@@ -1,11 +1,10 @@
-import { bootstrap, AppPresenter, AppView, Todo, Mediator } from '../../../src';
+import { bootstrap, AppPresenter, AppView, Todo, Injector } from '../../../src';
 
 import * as appViewMock from '../../mocks/views/app-view.mock';
 import * as storageMock from '../../mocks/infrastructure/storage.mock';
 
 describe('AppPresenter', () => {
   let presenter: AppPresenter;
-  let mediator: Mediator;
   let appView: AppView;
   let activeTodo: Todo;
   let completedTodo: Todo;
@@ -16,17 +15,19 @@ describe('AppPresenter', () => {
     completedTodo.complete();
     storageMock.getTodos.mockReturnValue([activeTodo, completedTodo]);
 
-    mediator = bootstrap(storageMock.StorageMock);
+    bootstrap(storageMock.StorageMock);
     appView = new appViewMock.AppViewMock();
   });
 
   afterEach(() => {
     jest.clearAllMocks();
+    Injector.reset();
   });
 
   describe('On load', () => {
     test('intializes the view', () => {
-      presenter = new AppPresenter(appView, mediator);
+      presenter = Injector.resolve<AppPresenter>(AppPresenter);
+      presenter.attach(appView);
 
       expect(appViewMock.showList).toHaveBeenCalled();
       expect(appViewMock.emptyTodoInput).toHaveBeenCalled();
@@ -37,7 +38,8 @@ describe('AppPresenter', () => {
 
   describe('User actions', () => {
     beforeEach(() => {
-      presenter = new AppPresenter(appView, mediator);
+      presenter = Injector.resolve<AppPresenter>(AppPresenter);
+      presenter.attach(appView);
       jest.clearAllMocks();
     });
 
@@ -94,7 +96,6 @@ describe('AppPresenter', () => {
 
           expect(appViewMock.showList).toHaveBeenCalled();
           expect(appViewMock.emptyTodoInput).toHaveBeenCalled();
-          expect(appViewMock.setFilter).toHaveBeenCalledWith('none');
           expect(appViewMock.setTodos).toHaveBeenCalledWith([activeTodo, completedTodo, new Todo(newTodoTitle)]);
         });
 
@@ -116,7 +117,6 @@ describe('AppPresenter', () => {
 
           expect(appViewMock.showList).toHaveBeenCalled();
           expect(appViewMock.emptyTodoInput).toHaveBeenCalled();
-          expect(appViewMock.setFilter).toHaveBeenCalledWith('active');
           expect(appViewMock.setTodos).toHaveBeenCalledWith([activeTodo, new Todo(newTodoTitle)]);
         });
 
@@ -138,7 +138,6 @@ describe('AppPresenter', () => {
 
           expect(appViewMock.showList).toHaveBeenCalled();
           expect(appViewMock.emptyTodoInput).toHaveBeenCalled();
-          expect(appViewMock.setFilter).toHaveBeenCalledWith('completed');
           expect(appViewMock.setTodos).toHaveBeenCalledWith([completedTodo]);
         });
 

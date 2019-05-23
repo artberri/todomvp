@@ -1,56 +1,61 @@
-import { Mediator } from '../framework';
+import { Mediator, Service } from '../framework';
 import { AppView } from '../views';
 import {
   GetAllTodosQuery,
   AddTodoCommand,
-  Todo
+  Todo,
+  Notifier,
+  Events
 } from '../model';
 import { TodoFilterType } from './types';
-import { IAppPresenter } from './app.presenter.contract';
+import { BasePresenter } from './base.presenter';
 
-export class AppPresenter implements IAppPresenter {
+@Service()
+export class AppPresenter extends BasePresenter<AppView> {
   private allTodos: Todo[] = [];
   private filter: TodoFilterType = 'none';
 
   constructor(
-    private readonly view: AppView,
-    private readonly mediator: Mediator
+    private readonly mediator: Mediator,
+    private readonly notifier: Notifier
   ) {
-    this.retrieveTodos();
+    super();
+    this.allTodos = this.mediator.send(new GetAllTodosQuery());
+    this.notifier.subscribe<Todo[]>(Events.TodosChanged, (todos: Todo[]) => {
+      this.allTodos = todos;
+      this.refreshTodos();
+    });
+  }
+
+  protected init(): void {
+    this.view.emptyTodoInput();
+    this.refreshFilter();
+    this.refreshTodos();
   }
 
   public showAllTodos(): void {
     this.filter = 'none';
-    this.refreshView();
+    this.refreshFilter();
+    this.refreshTodos();
   }
 
   public showActiveTodos(): void {
     this.filter = 'active';
-    this.refreshView();
+    this.refreshFilter();
+    this.refreshTodos();
   }
 
   public showCompletedTodos(): void {
     this.filter = 'completed';
-    this.refreshView();
+    this.refreshFilter();
+    this.refreshTodos();
   }
 
   public addTodo(newTodoTitle: string): void {
     if (newTodoTitle) {
+      this.view.emptyTodoInput();
       this.mediator.send(new AddTodoCommand(newTodoTitle));
-      this.retrieveTodos();
     }
-  }
-
-  private retrieveTodos(): void {
-    this.allTodos = this.mediator.send(new GetAllTodosQuery());
-    this.view.emptyTodoInput();
-    this.refreshView();
-  }
-
-  private refreshView(): void {
-    this.refreshFilter();
-    this.refreshTodos();
-    this.refreshListVisibility();
   }
 
   private refreshFilter(): void {
@@ -70,6 +75,7 @@ export class AppPresenter implements IAppPresenter {
         todos = this.allTodos;
     }
     this.view.setTodos(todos);
+    this.refreshListVisibility();
   }
 
   private refreshListVisibility(): void {

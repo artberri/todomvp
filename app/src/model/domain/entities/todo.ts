@@ -1,7 +1,6 @@
 export class Todo {
   private _title: string;
   private _completed: boolean = false;
-  private _editing: boolean = false;
 
   get title(): string {
     return this._title;
