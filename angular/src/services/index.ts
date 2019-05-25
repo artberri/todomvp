@@ -1,2 +1,1 @@
-export * from './todo-storage.service';
-export * from './mediator.factory';
+export * from './todo-local-storage.service';

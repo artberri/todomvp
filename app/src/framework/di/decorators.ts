@@ -1,6 +1,5 @@
 // tslint:disable:variable-name
 // tslint:disable:ban-types
-
 import { Type } from './types';
 import { Injector } from './injector';
 
@@ -12,6 +11,6 @@ export const Service = (): GenericClassDecorator<Type<object>> => {
 
 export const Inject = (abstraction: Function) => {
   return (target: any, property: string) => {
-      target[property] = Injector.resolve(abstraction);
+    target[property] = Injector.resolve(abstraction);
   };
 };

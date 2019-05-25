@@ -1,3 +1,5 @@
 export * from './app.presenter';
-export * from './types';
-export * from '../views';
+export * from './filter-link.presenter';
+export * from './todos.presenter';
+export * from './header.presenter';
+export * from './footer.presenter';

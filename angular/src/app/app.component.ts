@@ -1,31 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { AppPresenter, Mediator, AppView, Todo, TodoFilterType } from '../../../app/src';
+import { AppPresenter, IAppView, Injector } from '../../../app/src';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.template.html',
   styles: []
 })
-export class AppComponent extends AppView implements OnInit {
-  public newTodoTitle: string;
-  public todos: Todo[];
-  public filter: TodoFilterType;
+export class AppComponent implements IAppView, OnInit {
   public isListVisible: boolean;
 
-  constructor(private readonly mediator: Mediator) {
-    super();
-  }
+  protected readonly presenter: AppPresenter = Injector.resolve(AppPresenter);
 
   public ngOnInit(): void {
-    this.presenter = new AppPresenter(this, this.mediator);
-  }
-
-  public setTodos(todos: Todo[]): void {
-    this.todos = todos;
-  }
-
-  public setFilter(filter: TodoFilterType): void {
-    this.filter = filter;
+    this.presenter.attach(this);
   }
 
   public showList(): void {
@@ -34,13 +21,5 @@ export class AppComponent extends AppView implements OnInit {
 
   public hideList(): void {
     this.isListVisible = false;
-  }
-
-  public emptyTodoInput(): void {
-    this.newTodoTitle = '';
-  }
-
-  public addTodo(): void {
-    this.presenter.addTodo(this.newTodoTitle);
   }
 }

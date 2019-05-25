@@ -1,30 +1,43 @@
-import { Injector, Type, Mediator, Observable } from './framework';
+import { Injector, Type, Mediator } from './framework';
 import {
-    GetAllTodosQueryHandler,
-    TodoRepository,
-    StoragePort,
-    GetActiveTodosQueryHandler,
-    GetCompletedTodosQueryHandler,
     AddTodoCommandHandler,
-    Notifier,
-    Events
+    TodoStorageService,
+    TodosState,
+    FilterState,
+    AppState,
+    SaveTodosCommandHandler,
+    LoadTodosCommandHandler,
+    SetFilterCommandHandler,
 } from './model';
-import { AppPresenter } from './presenters';
+import {
+  AppPresenter,
+  FilterLinkPresenter,
+  TodosPresenter,
+  HeaderPresenter,
+  FooterPresenter
+} from './presenters';
 
-export const bootstrap = (storageImplementation: Type<StoragePort>) => {
-    Injector.registerSingleton(Notifier);
-    Injector.registerSingleton(TodoRepository);
-    Injector.register(storageImplementation, StoragePort);
+export const bootstrap = (storageServiceImplementation: Type<TodoStorageService>) => {
+  // Infrastructure
+  Injector.register(storageServiceImplementation, TodoStorageService);
 
-    const notifier = Injector.resolve<Notifier>(Notifier);
-    notifier.addObservable(new Observable(Events.TodosChanged));
+  // State
+  Injector.registerSingleton(TodosState);
+  Injector.registerSingleton(FilterState);
+  Injector.registerSingleton(AppState);
 
-    const mediator = new Mediator();
-    mediator.registerHandler(GetAllTodosQueryHandler);
-    mediator.registerHandler(GetActiveTodosQueryHandler);
-    mediator.registerHandler(GetCompletedTodosQueryHandler);
-    mediator.registerHandler(AddTodoCommandHandler);
+  // Command handlers
+  const mediator = new Mediator();
+  mediator.registerHandler(AddTodoCommandHandler);
+  mediator.registerHandler(SaveTodosCommandHandler);
+  mediator.registerHandler(LoadTodosCommandHandler);
+  mediator.registerHandler(SetFilterCommandHandler);
+  Injector.registerInstance(mediator, Mediator);
 
-    Injector.registerInstance(mediator, Mediator);
-    Injector.register(AppPresenter);
+  // Presenters
+  Injector.register(AppPresenter);
+  Injector.register(FilterLinkPresenter);
+  Injector.register(TodosPresenter);
+  Injector.register(HeaderPresenter);
+  Injector.register(FooterPresenter);
 };

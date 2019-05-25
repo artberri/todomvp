@@ -46,7 +46,6 @@ export class Injector {
 
   public static resolve<T>(abstraction: Function): T {
     const registerKey = abstraction.name;
-
     const serviceData = this._container.get(registerKey);
     if (!serviceData) {
       throw new Error('Class not registered for: ' + registerKey);

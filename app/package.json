@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "tslint --project tslint.json 'src/**/*.ts' 'test/**/*.ts'",
     "build": "rm -rf dist && tsc",
-    "test": "jest",
+    "test": "jest --verbose",
     "coverage": "jest --coverage"
   },
   "author": {

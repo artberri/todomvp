@@ -21,7 +21,6 @@ export class Mediator {
 
   private resolveQueryHandler<TInput, TOutput>(message: Query<TInput>): QueryHandler<TInput, TOutput> {
     const handler = this._handlers.get(message.constructor.name);
-
     if (handler) {
       return handler;
     }
