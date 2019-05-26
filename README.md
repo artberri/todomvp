@@ -1,5 +1,8 @@
 # TodoMVP
 
+[![Build Status](https://travis-ci.org/artberri/todomvp.svg?branch=master)](https://travis-ci.org/artberri/todomvp)
+[![Coverage Status](https://coveralls.io/repos/github/artberri/todomvp/badge.svg)](https://coveralls.io/github/artberri/todomvp)
+
 Developers these days are spoiled with choice when it comes to selecting an MV*
 framework for structuring and organizing their JavaScript web apps.
 

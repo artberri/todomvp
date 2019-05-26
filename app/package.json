@@ -7,7 +7,8 @@
     "lint": "tslint --project tslint.json 'src/**/*.ts' 'test/**/*.ts'",
     "build": "rm -rf dist && tsc",
     "test": "jest --verbose",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "author": {
     "name": "Alberto Varela",
@@ -21,6 +22,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^24.0.13",
+    "coveralls": "^3.0.3",
     "jest": "^24.8.0",
     "reflect-metadata": "^0.1.13",
     "ts-jest": "^24.0.2",
