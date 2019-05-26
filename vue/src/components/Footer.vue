@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-      <span class="todo-count"><strong>{{ activeTodoCount }}</strong> item left</span>
+      <span class="todo-count"><strong>{{ activeTodoCount }}</strong> {{ 'item' | pluralize(activeTodoCount) }} left</span>
       <ul class="filters">
         <FilterLink :filter="noneFilter">All</FilterLink>
         <FilterLink :filter="activeFilter">Active</FilterLink>

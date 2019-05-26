@@ -11,6 +11,14 @@ bootstrap(TodoLocalStorageService);
 Vue.config.productionTip = false;
 Vue.use(VueLocalStorage);
 
+Vue.filter('pluralize', (value: string, count: number) => {
+  if (!value) {
+    return '';
+  }
+
+  return value + (count === 1 ? '' : 's');
+});
+
 new Vue({
   render: (h) => h(App)
 }).$mount('#app');

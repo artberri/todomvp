@@ -95,7 +95,6 @@ npm run serve
 
 Remaining todos:
 
-- Pluralize items left
 - Switch links by routing
 - Create React app
 

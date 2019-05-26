@@ -16,6 +16,13 @@ export class FooterComponent extends FooterMixin(BaseView) implements IFooterVie
 
   public readonly presenter: FooterPresenter = Injector.resolve(FooterPresenter);
 
+  public itemsMapping:
+      {[k: string]: string} = {
+        '=0': 'items',
+        '=1': 'item',
+        'other': 'items'
+      };
+
   public ngOnInit(): void {
     this.presenter.attach(this);
   }

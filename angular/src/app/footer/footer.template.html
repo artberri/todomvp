@@ -1,4 +1,4 @@
-<span class="todo-count"><strong>{{ activeTodoCount }}</strong> item left</span>
+<span class="todo-count"><strong>{{ activeTodoCount }}</strong> {{ activeTodoCount | i18nPlural: itemsMapping }} left</span>
 <ul class="filters">
   <li app-filter-link [filter]="noneFilter">All</li>
   <li app-filter-link [filter]="activeFilter">Active</li>

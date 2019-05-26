@@ -24,7 +24,7 @@ import { TodoLocalStorageService } from './services';
     Header,
     Todos,
     Footer,
-    CompleteAll,
+    CompleteAll
   }
 })
 export default class App extends Vue implements IAppView {
