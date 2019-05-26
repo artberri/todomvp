@@ -95,7 +95,6 @@ npm run serve
 
 Remaining todos:
 
-- Implement todo component
 - Pluralize items left
 - Switch links by routing
 - Create React app

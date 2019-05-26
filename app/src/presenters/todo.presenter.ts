@@ -23,6 +23,7 @@ export class TodoPresenter extends BasePresenter<ITodoView> {
       todo: this.view.todo,
       title
     }));
+    this.view.setViewMode();
   }
 
   public removeTodo(): void {

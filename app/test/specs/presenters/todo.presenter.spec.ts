@@ -197,6 +197,15 @@ describe('TodoPresenter', () => {
 
         expect(appState.todos[0].title).toBe(newTodoTitle);
       });
+
+      test('sets view mode', () => {
+        const newTodoTitle = 'edited';
+        view.todo = activeTodo;
+
+        presenter.editTodo(newTodoTitle);
+
+        expect(todoViewMock.setViewMode).toHaveBeenCalled();
+      });
     });
   });
 });

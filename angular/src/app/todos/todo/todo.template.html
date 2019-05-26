@@ -1,6 +1,6 @@
 <div class="view">
-  <input class="toggle" type="checkbox" [checked]="isCompleted">
-  <label>{{ todo.title }}</label>
-  <button class="destroy"></button>
+  <input class="toggle" type="checkbox" [checked]="isCompleted" (click)="onToggleCheckboxClicked()">
+  <label (dblclick)="onDoubleClicked()">{{ todo.title }}</label>
+  <button class="destroy" (click)="onRemoveButtonClicked()"></button>
 </div>
-<input class="edit" value="Create a TodoMVC template">
+<input [(ngModel)]="todoTitleInput" class="edit" (blur)="onInputBlur(todoTitleInput)" (keyup.enter)="onInputBlur(todoTitleInput)">

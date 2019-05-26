@@ -15,9 +15,10 @@ export class Todo {
     return this._completed;
   }
 
-  constructor(id: number, title: string) {
+  constructor(id: number, title: string, completed: boolean = false) {
     this._id = id;
     this._title = title;
+    this._completed = completed;
   }
 
   public setTitle(newTitle: string): void {
