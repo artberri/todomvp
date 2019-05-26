@@ -2,8 +2,8 @@
   <header app-header class="header"></header>
   <!-- This section should be hidden by default and shown when there are todos -->
   <section *ngIf="isListVisible" class="main">
-    <input id="toggle-all" class="toggle-all" type="checkbox">
-    <label for="toggle-all">Mark all as complete</label>
+    <input *ngIf="isListVisible" app-complete-all id="toggle-all" class="toggle-all" type="checkbox">
+    <label *ngIf="isListVisible" for="toggle-all">Mark all as complete</label>
     <ul app-todos class="todo-list">
 
       <!--<li class="completed">

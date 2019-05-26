@@ -11,7 +11,7 @@ export class TodosState extends StateContainer<Todo[]> {
     this.setState(todos);
   }
 
-  public removeCompleted(): void {
+  public clearCompleted(): void {
     this.setState(this.state.filter(todo => todo.isCompleted === false));
   }
 
@@ -26,4 +26,11 @@ export class TodosState extends StateContainer<Todo[]> {
     ]);
   }
 
+  public completeAll(): void {
+    const areAllMarked = this.state.every(todo => todo.isCompleted);
+    this.setState(this.state.map(todo => {
+      areAllMarked ? todo.activate() : todo.complete();
+      return todo;
+    }));
+  }
 }

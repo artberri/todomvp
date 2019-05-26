@@ -8,13 +8,17 @@ import {
     SaveTodosCommandHandler,
     LoadTodosCommandHandler,
     SetFilterCommandHandler,
+    ClearCompletedCommandHandler,
+    CompleteAllCommandHandler,
 } from './model';
 import {
   AppPresenter,
   FilterLinkPresenter,
   TodosPresenter,
   HeaderPresenter,
-  FooterPresenter
+  FooterPresenter,
+  CompleteAllPresenter,
+  TodoPresenter
 } from './presenters';
 
 export const bootstrap = (storageServiceImplementation: Type<TodoStorageService>) => {
@@ -32,6 +36,8 @@ export const bootstrap = (storageServiceImplementation: Type<TodoStorageService>
   mediator.registerHandler(SaveTodosCommandHandler);
   mediator.registerHandler(LoadTodosCommandHandler);
   mediator.registerHandler(SetFilterCommandHandler);
+  mediator.registerHandler(ClearCompletedCommandHandler);
+  mediator.registerHandler(CompleteAllCommandHandler);
   Injector.registerInstance(mediator, Mediator);
 
   // Presenters
@@ -40,4 +46,6 @@ export const bootstrap = (storageServiceImplementation: Type<TodoStorageService>
   Injector.register(TodosPresenter);
   Injector.register(HeaderPresenter);
   Injector.register(FooterPresenter);
+  Injector.register(CompleteAllPresenter);
+  Injector.register(TodoPresenter);
 };

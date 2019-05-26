@@ -8,6 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { FilterLinkComponent } from './footer/filter-link/filter-link.component';
 import { TodosComponent } from './todos/todos.component';
+import { CompleteAllComponent } from './complete-all/complete-all.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { TodosComponent } from './todos/todos.component';
     HeaderComponent,
     FooterComponent,
     FilterLinkComponent,
-    TodosComponent
+    TodosComponent,
+    CompleteAllComponent
   ],
   imports: [
     BrowserModule,

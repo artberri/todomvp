@@ -53,6 +53,14 @@ export class AppState extends StateContainer<IState> {
     return this.todosState.state.length > 0;
   }
 
+  public get anyCompletedTodos(): boolean {
+    return !!this.todosState.state.find((todo) => todo.isCompleted);
+  }
+
+  public get areAllCompleted(): boolean {
+    return this.todosState.state.every((todo) => todo.isCompleted);
+  }
+
   protected setState(): void {
     super.setState({
       todos: this.todosState.state,

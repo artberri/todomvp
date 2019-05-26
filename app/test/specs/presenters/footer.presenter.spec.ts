@@ -1,7 +1,7 @@
 import { bootstrap } from '../../../src/bootstrap';
 import { Injector } from '../../../src/framework';
 import { FooterPresenter } from '../../../src/presenters';
-import { Todo, TodosState } from '../../../src/model';
+import { Todo, TodosState, AppState } from '../../../src/model';
 import { IFooterView } from '../../../src/views';
 
 import * as footerViewMock from '../../mocks/views/footer-view.mock';
@@ -31,13 +31,37 @@ describe('FooterPresenter', () => {
       view = new footerViewMock.FooterViewMock();
       presenter = Injector.resolve<FooterPresenter>(FooterPresenter);
       todosState = Injector.resolve<TodosState>(TodosState);
-      todosState.initialize([activeTodo, completedTodo, activeTodo2]);
     });
 
     test('sets the active todo count', () => {
+      todosState.initialize([activeTodo, completedTodo, activeTodo2]);
       presenter.attach(view);
 
       expect(view.setActiveTodoCount).toHaveBeenCalledWith(2);
+    });
+
+    describe('when no completed todos', () => {
+      beforeEach(() => {
+        todosState.initialize([activeTodo, activeTodo2]);
+      });
+
+      test('hides the clear completed link', () => {
+        presenter.attach(view);
+
+        expect(view.hideClearCompletedLink).toHaveBeenCalled();
+      });
+    });
+
+    describe('when there are completed todos', () => {
+      beforeEach(() => {
+        todosState.initialize([activeTodo, completedTodo, activeTodo2]);
+      });
+
+      test('shows the clear completed link', () => {
+        presenter.attach(view);
+
+        expect(view.showClearCompletedLink).toHaveBeenCalled();
+      });
     });
   });
 
@@ -52,15 +76,68 @@ describe('FooterPresenter', () => {
       view = new footerViewMock.FooterViewMock();
       presenter = Injector.resolve<FooterPresenter>(FooterPresenter);
       todosState = Injector.resolve<TodosState>(TodosState);
+      jest.clearAllMocks();
+    });
+
+    test('sets the active todo count', () => {
+      todosState.initialize([activeTodo, completedTodo, activeTodo2]);
+      presenter.attach(view);
+
+      todosState.add(new Todo('new'));
+
+      expect(view.setActiveTodoCount).toHaveBeenCalledWith(3);
+    });
+
+    describe('when no completed todos', () => {
+      test('hides the clear completed link', () => {
+        todosState.initialize([activeTodo, completedTodo, activeTodo2]);
+        presenter.attach(view);
+
+        todosState.remove(completedTodo);
+
+        expect(view.hideClearCompletedLink).toHaveBeenCalled();
+      });
+    });
+
+    describe('when there are completed todos', () => {
+      test('shows the clear completed link', () => {
+        todosState.initialize([activeTodo, activeTodo2]);
+        presenter.attach(view);
+
+        const newTodo = new Todo('new');
+        newTodo.complete();
+        todosState.add(newTodo);
+
+        expect(view.showClearCompletedLink).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('User actions', () => {
+    let appState: AppState;
+
+    beforeEach(() => {
+      activeTodo = new Todo('Initially active todo');
+      activeTodo2 = new Todo('Initially active todo2');
+      completedTodo = new Todo('Initially completed todo');
+      completedTodo.complete();
+
+      bootstrap(storageMock.TodoStorageMock);
+      view = new footerViewMock.FooterViewMock();
+      presenter = Injector.resolve<FooterPresenter>(FooterPresenter);
+      todosState = Injector.resolve<TodosState>(TodosState);
+      appState = Injector.resolve<AppState>(AppState);
       todosState.initialize([activeTodo, completedTodo, activeTodo2]);
       presenter.attach(view);
       jest.clearAllMocks();
     });
 
-    test('sets the active todo count', () => {
-      todosState.add(new Todo('new'));
+    describe('On click completed link', () => {
+      test('removes all completed todos', () => {
+        presenter.clearCompleted();
 
-      expect(view.setActiveTodoCount).toHaveBeenCalledWith(3);
+        expect(appState.todos).toStrictEqual([activeTodo, activeTodo2]);
+      });
     });
   });
 });

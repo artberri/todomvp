@@ -2,8 +2,8 @@
   <section class="todoapp">
     <Header />
     <section v-if="isListVisible" class="main">
-      <input id="toggle-all" class="toggle-all" type="checkbox">
-      <label for="toggle-all">Mark all as complete</label>
+      <CompleteAll v-if="isListVisible" />
+      <label v-if="isListVisible" for="toggle-all">Mark all as complete</label>
       <Todos />
     </section>
     <Footer v-if="isListVisible" />
@@ -15,6 +15,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import Header from './components/Header.vue';
 import Todos from './components/Todos.vue';
 import Footer from './components/Footer.vue';
+import CompleteAll from './components/CompleteAll.vue';
 import { IAppView, AppPresenter, Injector } from '../../app/src';
 import { TodoLocalStorageService } from './services';
 
@@ -23,6 +24,7 @@ import { TodoLocalStorageService } from './services';
     Header,
     Todos,
     Footer,
+    CompleteAll,
   }
 })
 export default class App extends Vue implements IAppView {

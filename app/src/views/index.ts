@@ -5,3 +5,8 @@ export * from './filter-link.mixin';
 export * from './header.view';
 export * from './header.mixin';
 export * from './footer.view';
+export * from './footer.mixin';
+export * from './complete-all.mixin';
+export * from './complete-all.view';
+export * from './todo.view';
+export * from './todo.mixin';

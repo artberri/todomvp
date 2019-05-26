@@ -15,6 +15,7 @@ export class HeaderPresenter extends BasePresenter<IHeaderView> {
   }
 
   public addTodo(newTodoTitle: string): void {
+    newTodoTitle.trim();
     if (newTodoTitle) {
       this.view.emptyTodoInput();
       this.mediator.send(new AddTodoCommand(newTodoTitle));

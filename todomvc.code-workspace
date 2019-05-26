@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "angular"
+		},
+		{
+			"path": "app"
+		},
+		{
+			"path": "vue"
+		}
+	],
+	"settings": {}
+}
