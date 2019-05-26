@@ -16,7 +16,6 @@ import {
 } from './model';
 import {
   AppPresenter,
-  FilterLinkPresenter,
   TodosPresenter,
   HeaderPresenter,
   FooterPresenter,
@@ -48,7 +47,6 @@ export const bootstrap = (storageServiceImplementation: Type<TodoStorageService>
 
   // Presenters
   Injector.register(AppPresenter);
-  Injector.register(FilterLinkPresenter);
   Injector.register(TodosPresenter);
   Injector.register(HeaderPresenter);
   Injector.register(FooterPresenter);

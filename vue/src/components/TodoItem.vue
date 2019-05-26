@@ -3,7 +3,7 @@
     <div class="view">
       <input class="toggle" type="checkbox" :checked="isCompleted" v-on:click="onToggleCheckboxClicked()">
       <label v-on:dblclick="onDoubleClicked()">{{ todo.title }}</label>
-      <button class="destroy"></button>
+      <button class="destroy" v-on:click="onRemoveButtonClicked()"></button>
     </div>
     <input class="edit" v-model="todoTitleInput" v-on:blur="onInputBlur(todoTitleInput)" v-on:keyup.enter="onInputBlur(todoTitleInput)" />
   </li>

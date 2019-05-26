@@ -1,7 +1,7 @@
 <span class="todo-count"><strong>{{ activeTodoCount }}</strong> {{ activeTodoCount | i18nPlural: itemsMapping }} left</span>
 <ul class="filters">
-  <li app-filter-link [filter]="noneFilter">All</li>
-  <li app-filter-link [filter]="activeFilter">Active</li>
-  <li app-filter-link [filter]="completedFilter">Completed</li>
+  <li><a routerLink="/" routerLinkActive="selected" [routerLinkActiveOptions]="{exact: true}">All</a></li>
+  <li><a routerLink="/active" routerLinkActive="selected" [routerLinkActiveOptions]="{exact: true}">Active</a></li>
+  <li><a routerLink="/completed" routerLinkActive="selected" [routerLinkActiveOptions]="{exact: true}">Completed</a></li>
 </ul>
 <button *ngIf="isClearCompletedLinkShown" (click)="onClearCompletedClicked()" class="clear-completed">Clear completed</button>

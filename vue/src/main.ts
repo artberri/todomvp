@@ -1,6 +1,7 @@
 import 'todomvc-common/base.css';
 import 'todomvc-app-css/index.css';
 import Vue from 'vue';
+import Router from './routes';
 import App from './App.vue';
 import VueLocalStorage from 'vue-localstorage';
 import { bootstrap } from '../../app/src';
@@ -20,5 +21,6 @@ Vue.filter('pluralize', (value: string, count: number) => {
 });
 
 new Vue({
+  router: Router,
   render: (h) => h(App)
 }).$mount('#app');

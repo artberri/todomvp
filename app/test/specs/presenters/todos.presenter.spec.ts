@@ -1,7 +1,7 @@
 import { bootstrap } from '../../../src/bootstrap';
 import { Injector } from '../../../src/framework';
 import { TodosPresenter } from '../../../src/presenters';
-import { Todo, TodosState, FilterState } from '../../../src/model';
+import { Todo, TodosState, FilterState, AppState } from '../../../src/model';
 import { ITodosView } from '../../../src/views';
 
 import * as todosViewMock from '../../mocks/views/todos-view.mock';
@@ -11,6 +11,7 @@ describe('TodosPresenter', () => {
   let presenter: TodosPresenter;
   let todosState: TodosState;
   let filterState: FilterState;
+  let appState: AppState;
   let view: ITodosView;
   let activeTodo: Todo;
   let activeTodo2: Todo;
@@ -31,36 +32,40 @@ describe('TodosPresenter', () => {
       bootstrap(storageMock.TodoStorageMock);
       view = new todosViewMock.TodosViewMock();
       presenter = Injector.resolve<TodosPresenter>(TodosPresenter);
+      appState = Injector.resolve<AppState>(AppState);
       todosState = Injector.resolve<TodosState>(TodosState);
       filterState = Injector.resolve<FilterState>(FilterState);
       todosState.initialize([activeTodo, completedTodo, activeTodo2]);
       jest.clearAllMocks();
     });
 
-    describe('when the the filter is set to "none"', () => {
+    describe('when the filter is set to "none"', () => {
       test('shows all todos', () => {
-        filterState.setVisibilityFilter('none');
+        view.filter = 'none';
         presenter.attach(view);
 
         expect(view.setTodos).toHaveBeenCalledWith([activeTodo, completedTodo, activeTodo2]);
+        expect(appState.filter).toBe('none');
       });
     });
 
-    describe('when the the filter is set to "active"', () => {
+    describe('when the filter is set to "active"', () => {
       test('shows active todos', () => {
-        filterState.setVisibilityFilter('active');
+        view.filter = 'active';
         presenter.attach(view);
 
         expect(view.setTodos).toHaveBeenCalledWith([activeTodo, activeTodo2]);
+        expect(appState.filter).toBe('active');
       });
     });
 
-    describe('when the the filter is set to "completed"', () => {
+    describe('when the filter is set to "completed"', () => {
       test('shows completed todos', () => {
-        filterState.setVisibilityFilter('completed');
+        view.filter = 'completed';
         presenter.attach(view);
 
         expect(view.setTodos).toHaveBeenCalledWith([completedTodo]);
+        expect(appState.filter).toBe('completed');
       });
     });
   });
@@ -85,7 +90,7 @@ describe('TodosPresenter', () => {
     describe('when the the filter is set to "none"', () => {
       beforeEach(() => {
         newTodo = new Todo(4, 'new');
-        filterState.setVisibilityFilter('none');
+        view.filter = 'none';
         presenter.attach(view);
         jest.clearAllMocks();
       });
@@ -100,7 +105,7 @@ describe('TodosPresenter', () => {
     describe('when the the filter is set to "active"', () => {
       beforeEach(() => {
         newTodo = new Todo(4, 'new');
-        filterState.setVisibilityFilter('active');
+        view.filter = 'active';
         presenter.attach(view);
         jest.clearAllMocks();
       });
@@ -115,7 +120,7 @@ describe('TodosPresenter', () => {
     describe('when the the filter is set to "completed"', () => {
       beforeEach(() => {
         newTodo = new Todo(4, 'new');
-        filterState.setVisibilityFilter('completed');
+        view.filter = 'completed';
         presenter.attach(view);
         jest.clearAllMocks();
       });

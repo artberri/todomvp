@@ -2,9 +2,15 @@
   <footer class="footer">
       <span class="todo-count"><strong>{{ activeTodoCount }}</strong> {{ 'item' | pluralize(activeTodoCount) }} left</span>
       <ul class="filters">
-        <FilterLink :filter="noneFilter">All</FilterLink>
-        <FilterLink :filter="activeFilter">Active</FilterLink>
-        <FilterLink :filter="completedFilter">Completed</FilterLink>
+        <li>
+          <router-link :to="{ name: 'home'}" exact>All</router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'active'}" exact>Active</router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'completed'}" exact>Completed</router-link>
+        </li>
       </ul>
       <button v-if="isClearCompletedLinkShown" v-on:click="onClearCompletedClicked()" class="clear-completed">Clear completed</button>
     </footer>
@@ -13,13 +19,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { FooterPresenter, Injector, IFooterView, TodoFilterType } from '../../../app/src';
-import FilterLink from './FilterLink.vue';
 import { VueFooterMixin } from '../mixins';
 
 @Component({
-  components: {
-    FilterLink,
-  },
   mixins: [VueFooterMixin]
 })
 export default class Footer extends VueFooterMixin implements IFooterView {

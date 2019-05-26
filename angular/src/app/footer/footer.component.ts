@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Injector, IFooterView, FooterPresenter, TodoFilterType, FooterMixin } from '../../../../app/src';
+import { Injector, IFooterView, FooterPresenter, FooterMixin } from '../../../../app/src';
 import { BaseView } from '../base.view';
 
 @Component({
@@ -9,9 +9,6 @@ import { BaseView } from '../base.view';
 })
 export class FooterComponent extends FooterMixin(BaseView) implements IFooterView, OnInit {
   public activeTodoCount: number = 0;
-  public noneFilter: TodoFilterType = 'none';
-  public activeFilter: TodoFilterType = 'active';
-  public completedFilter: TodoFilterType = 'completed';
   public isClearCompletedLinkShown: boolean = false;
 
   public readonly presenter: FooterPresenter = Injector.resolve(FooterPresenter);

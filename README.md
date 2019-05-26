@@ -95,7 +95,6 @@ npm run serve
 
 Remaining todos:
 
-- Switch links by routing
 - Create React app
 
 ## License

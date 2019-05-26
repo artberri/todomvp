@@ -3,7 +3,7 @@
   <section *ngIf="isListVisible" class="main">
     <input *ngIf="isListVisible" app-complete-all id="toggle-all" class="toggle-all" type="checkbox">
     <label *ngIf="isListVisible" for="toggle-all">Mark all as complete</label>
-    <ul app-todos class="todo-list"></ul>
+    <router-outlet></router-outlet>
   </section>
   <footer app-footer *ngIf="isListVisible" class="footer"></footer>
 </section>

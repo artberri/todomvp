@@ -1,29 +1,12 @@
 <template>
   <ul class="todo-list">
-    <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
-    <TodoItem v-for="(todo, index) in todos" v-bind:key="index" :todo="todo"></TodoItem>
-    <!--<li class="completed">
-      <div class="view">
-        <input class="toggle" type="checkbox" checked>
-        <label>Taste JavaScript</label>
-        <button class="destroy"></button>
-      </div>
-      <input class="edit" value="Create a TodoMVC template">
-    </li>
-    <li>
-      <div class="view">
-        <input class="toggle" type="checkbox">
-        <label>Buy a unicorn</label>
-        <button class="destroy"></button>
-      </div>
-      <input class="edit" value="Rule the web">
-    </li>-->
+    <TodoItem v-for="todo in todos" v-bind:key="todo.id" :todo="todo"></TodoItem>
   </ul>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { TodosPresenter, Injector, ITodosView, Todo } from '../../../app/src';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { TodosPresenter, Injector, ITodosView, Todo, TodoFilterType } from '../../../app/src';
 import TodoItem from './TodoItem.vue';
 
 @Component({
@@ -33,6 +16,9 @@ import TodoItem from './TodoItem.vue';
 })
 export default class Todos extends Vue implements ITodosView {
   public todos: Todo[] = [];
+
+  @Prop()
+  public filter!: TodoFilterType;
 
   protected readonly presenter: TodosPresenter = Injector.resolve(TodosPresenter);
 

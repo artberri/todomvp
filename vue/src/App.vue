@@ -4,7 +4,7 @@
     <section v-if="isListVisible" class="main">
       <CompleteAll v-if="isListVisible" />
       <label v-if="isListVisible" for="toggle-all">Mark all as complete</label>
-      <Todos />
+      <router-view :key="$route.name"></router-view>
     </section>
     <Footer v-if="isListVisible" />
   </section>
