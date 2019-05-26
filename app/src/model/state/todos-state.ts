@@ -33,4 +33,22 @@ export class TodosState extends StateContainer<Todo[]> {
       return todo;
     }));
   }
+
+  public toggle(todo: Todo): void {
+    this.setState(this.state.map(t => {
+      if (t === todo) {
+        t.isCompleted ? t.activate() : t.complete();
+      }
+      return t;
+    }));
+  }
+
+  public edit(todo: Todo, newTitle: string): void {
+    this.setState(this.state.map(t => {
+      if (t === todo) {
+        t.setTitle(newTitle);
+      }
+      return t;
+    }));
+  }
 }

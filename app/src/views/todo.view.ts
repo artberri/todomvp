@@ -4,7 +4,7 @@ export interface ITodoUserActions {
   onDoubleClicked(): void;
   onToggleCheckboxClicked(): void;
   onRemoveButtonClicked(): void;
-  onEditTodo(title: string): void;
+  onInputBlur(inputContent: string): void;
 }
 
 export interface ITodoView extends ITodoUserActions {

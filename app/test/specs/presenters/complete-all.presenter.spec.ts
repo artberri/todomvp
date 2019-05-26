@@ -16,9 +16,9 @@ describe('CompleteAllPresenter', () => {
   let todosState: TodosState;
 
   beforeEach(() => {
-    activeTodo = new Todo('Initially active todo');
-    activeTodo2 = new Todo('Initially active todo2');
-    completedTodo = new Todo('Initially completed todo');
+    activeTodo = new Todo(1, 'Initially active todo');
+    activeTodo2 = new Todo(2, 'Initially active todo2');
+    completedTodo = new Todo(3, 'Initially completed todo');
     completedTodo.complete();
     bootstrap(storageMock.TodoStorageMock);
     view = new completaAllViewMock.CompleteAllViewMock();
@@ -72,7 +72,7 @@ describe('CompleteAllPresenter', () => {
 
     describe('when all todos are completed', () => {
       test('checks the checkbox', () => {
-        const newTodo = new Todo('new');
+        const newTodo = new Todo(4, 'new');
         newTodo.complete();
         todosState.add(newTodo);
 

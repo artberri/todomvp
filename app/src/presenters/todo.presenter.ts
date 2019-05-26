@@ -1,32 +1,39 @@
-import { Service, BasePresenter } from '../framework';
+import { Service, BasePresenter, Mediator } from '../framework';
 import { ITodoView } from '../views';
-import { AppState } from '../model';
+import { AppState, ToggleTodoCommand, RemoveTodoCommand, EditTodoCommand } from '../model';
 
 @Service()
 export class TodoPresenter extends BasePresenter<ITodoView> {
   constructor(
-    private readonly state: AppState
+    private readonly state: AppState,
+    private readonly mediator: Mediator
   ) {
     super();
   }
 
   protected init(): void {
-
+    this.view.setViewMode();
+    this.state.subscribe(() => {
+      this.view.todo.isCompleted ? this.view.completeTodo() : this.view.activateTodo();
+    });
   }
 
   public editTodo(title: string): void {
-    throw new Error('Method not implemented.');
+    this.mediator.send(new EditTodoCommand({
+      todo: this.view.todo,
+      title
+    }));
   }
 
   public removeTodo(): void {
-    throw new Error('Method not implemented.');
+    this.mediator.send(new RemoveTodoCommand(this.view.todo));
   }
 
   public toggleTodo(): void {
-    throw new Error('Method not implemented.');
+    this.mediator.send(new ToggleTodoCommand(this.view.todo));
   }
 
   public setEditMode(): void {
-    throw new Error('Method not implemented.');
+    this.view.setEditMode();
   }
 }

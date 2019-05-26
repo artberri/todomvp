@@ -19,8 +19,8 @@ export function TodoMixin<TBase extends Type>(base: TBase) {
       this.presenter.removeTodo();
     }
 
-    public onEditTodo(title: string): void {
-      this.presenter.editTodo(title);
+    public onInputBlur(inputContent: string): void {
+      this.presenter.editTodo(inputContent);
     }
   };
 }

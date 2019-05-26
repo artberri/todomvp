@@ -4,3 +4,6 @@ export * from './load-todos.handler';
 export * from './save-todos.handler';
 export * from './clear-completed.handler';
 export * from './complete-all.handler';
+export * from './toggle-todo.handler';
+export * from './edit-todo.handler';
+export * from './remove-todo.handler';

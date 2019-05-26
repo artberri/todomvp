@@ -22,9 +22,9 @@ describe('FooterPresenter', () => {
 
   describe('On load', () => {
     beforeEach(() => {
-      activeTodo = new Todo('Initially active todo');
-      activeTodo2 = new Todo('Initially active todo2');
-      completedTodo = new Todo('Initially completed todo');
+      activeTodo = new Todo(1, 'Initially active todo');
+      activeTodo2 = new Todo(2, 'Initially active todo2');
+      completedTodo = new Todo(3, 'Initially completed todo');
       completedTodo.complete();
 
       bootstrap(storageMock.TodoStorageMock);
@@ -67,9 +67,9 @@ describe('FooterPresenter', () => {
 
   describe('On state change', () => {
     beforeEach(() => {
-      activeTodo = new Todo('Initially active todo');
-      activeTodo2 = new Todo('Initially active todo2');
-      completedTodo = new Todo('Initially completed todo');
+      activeTodo = new Todo(1, 'Initially active todo');
+      activeTodo2 = new Todo(2, 'Initially active todo2');
+      completedTodo = new Todo(3, 'Initially completed todo');
       completedTodo.complete();
 
       bootstrap(storageMock.TodoStorageMock);
@@ -83,7 +83,7 @@ describe('FooterPresenter', () => {
       todosState.initialize([activeTodo, completedTodo, activeTodo2]);
       presenter.attach(view);
 
-      todosState.add(new Todo('new'));
+      todosState.add(new Todo(4, 'new'));
 
       expect(view.setActiveTodoCount).toHaveBeenCalledWith(3);
     });
@@ -104,7 +104,7 @@ describe('FooterPresenter', () => {
         todosState.initialize([activeTodo, activeTodo2]);
         presenter.attach(view);
 
-        const newTodo = new Todo('new');
+        const newTodo = new Todo(4, 'new');
         newTodo.complete();
         todosState.add(newTodo);
 
@@ -117,9 +117,9 @@ describe('FooterPresenter', () => {
     let appState: AppState;
 
     beforeEach(() => {
-      activeTodo = new Todo('Initially active todo');
-      activeTodo2 = new Todo('Initially active todo2');
-      completedTodo = new Todo('Initially completed todo');
+      activeTodo = new Todo(1, 'Initially active todo');
+      activeTodo2 = new Todo(3, 'Initially active todo2');
+      completedTodo = new Todo(2, 'Initially completed todo');
       completedTodo.complete();
 
       bootstrap(storageMock.TodoStorageMock);

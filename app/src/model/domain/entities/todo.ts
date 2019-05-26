@@ -1,6 +1,11 @@
 export class Todo {
+  private _id: number;
   private _title: string;
   private _completed: boolean = false;
+
+  get id(): number {
+    return this._id;
+  }
 
   get title(): string {
     return this._title;
@@ -10,9 +15,13 @@ export class Todo {
     return this._completed;
   }
 
-  constructor(title: string, completed: boolean = false) {
-    this._title = title.trim();
-    this._completed = completed;
+  constructor(id: number, title: string) {
+    this._id = id;
+    this._title = title;
+  }
+
+  public setTitle(newTitle: string): void {
+    this._title = newTitle;
   }
 
   public complete(): void {

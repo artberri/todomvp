@@ -12,7 +12,8 @@ export class AddTodoCommandHandler extends CommandHandler<string> {
   }
 
   public handle(title: string): void {
-    const todo = new Todo(title);
+    const id = this.todosState.state.reduce((maxId, t) => Math.max(t.id, maxId), -1) + 1
+    const todo = new Todo(id, title);
     this.todosState.add(todo);
   }
 }

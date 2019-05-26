@@ -1,15 +1,18 @@
 import { Injector, Type, Mediator } from './framework';
 import {
-    AddTodoCommandHandler,
-    TodoStorageService,
-    TodosState,
-    FilterState,
-    AppState,
-    SaveTodosCommandHandler,
-    LoadTodosCommandHandler,
-    SetFilterCommandHandler,
-    ClearCompletedCommandHandler,
-    CompleteAllCommandHandler,
+  AddTodoCommandHandler,
+  TodoStorageService,
+  TodosState,
+  FilterState,
+  AppState,
+  SaveTodosCommandHandler,
+  LoadTodosCommandHandler,
+  SetFilterCommandHandler,
+  ClearCompletedCommandHandler,
+  CompleteAllCommandHandler,
+  ToggleTodoCommandHandler,
+  RemoveTodoCommandHandler,
+  EditTodoCommandHandler
 } from './model';
 import {
   AppPresenter,
@@ -38,6 +41,9 @@ export const bootstrap = (storageServiceImplementation: Type<TodoStorageService>
   mediator.registerHandler(SetFilterCommandHandler);
   mediator.registerHandler(ClearCompletedCommandHandler);
   mediator.registerHandler(CompleteAllCommandHandler);
+  mediator.registerHandler(ToggleTodoCommandHandler);
+  mediator.registerHandler(RemoveTodoCommandHandler);
+  mediator.registerHandler(EditTodoCommandHandler);
   Injector.registerInstance(mediator, Mediator);
 
   // Presenters

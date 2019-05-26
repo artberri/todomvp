@@ -37,8 +37,8 @@ describe('AppPresenter', () => {
 
     describe('when there are todos on storage', () => {
       beforeEach(() => {
-        activeTodo = new Todo('Initially active todo');
-        completedTodo = new Todo('Initially completed todo');
+        activeTodo = new Todo(1, 'Initially active todo');
+        completedTodo = new Todo(2, 'Initially completed todo');
         completedTodo.complete();
         storageMock.getTodos.mockReturnValue([activeTodo, completedTodo]);
 
@@ -56,7 +56,7 @@ describe('AppPresenter', () => {
   });
 
   describe('On state change', () => {
-    const todo = new Todo('todo');
+    const todo = new Todo(4, 'todo');
 
     beforeEach(() => {
       storageMock.getTodos.mockReturnValue([todo]);
@@ -69,7 +69,7 @@ describe('AppPresenter', () => {
 
     test('saves todos', () => {
       const todoState = Injector.resolve<TodosState>(TodosState);
-      const newTodo = new Todo('todo');
+      const newTodo = new Todo(4, 'todo');
       todoState.add(newTodo);
 
       expect(storageMock.saveTodos).toHaveBeenCalledWith([newTodo]);

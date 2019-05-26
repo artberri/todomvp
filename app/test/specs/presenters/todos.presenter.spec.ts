@@ -7,7 +7,7 @@ import { ITodosView } from '../../../src/views';
 import * as todosViewMock from '../../mocks/views/todos-view.mock';
 import * as storageMock from '../../mocks/infrastructure/storage.mock';
 
-describe('FooterPresenter', () => {
+describe('TodosPresenter', () => {
   let presenter: TodosPresenter;
   let todosState: TodosState;
   let filterState: FilterState;
@@ -23,9 +23,9 @@ describe('FooterPresenter', () => {
 
   describe('On load', () => {
     beforeEach(() => {
-      activeTodo = new Todo('Initially active todo');
-      activeTodo2 = new Todo('Initially active todo2');
-      completedTodo = new Todo('Initially completed todo');
+      activeTodo = new Todo(1, 'Initially active todo');
+      activeTodo2 = new Todo(2, 'Initially active todo2');
+      completedTodo = new Todo(3, 'Initially completed todo');
       completedTodo.complete();
 
       bootstrap(storageMock.TodoStorageMock);
@@ -69,9 +69,9 @@ describe('FooterPresenter', () => {
     let newTodo: Todo;
 
     beforeEach(() => {
-      activeTodo = new Todo('Initially active todo');
-      activeTodo2 = new Todo('Initially active todo2');
-      completedTodo = new Todo('Initially completed todo');
+      activeTodo = new Todo(1, 'Initially active todo');
+      activeTodo2 = new Todo(2, 'Initially active todo2');
+      completedTodo = new Todo(3, 'Initially completed todo');
       completedTodo.complete();
 
       bootstrap(storageMock.TodoStorageMock);
@@ -84,7 +84,7 @@ describe('FooterPresenter', () => {
 
     describe('when the the filter is set to "none"', () => {
       beforeEach(() => {
-        newTodo = new Todo('new');
+        newTodo = new Todo(4, 'new');
         filterState.setVisibilityFilter('none');
         presenter.attach(view);
         jest.clearAllMocks();
@@ -99,7 +99,7 @@ describe('FooterPresenter', () => {
 
     describe('when the the filter is set to "active"', () => {
       beforeEach(() => {
-        newTodo = new Todo('new');
+        newTodo = new Todo(4, 'new');
         filterState.setVisibilityFilter('active');
         presenter.attach(view);
         jest.clearAllMocks();
@@ -114,7 +114,7 @@ describe('FooterPresenter', () => {
 
     describe('when the the filter is set to "completed"', () => {
       beforeEach(() => {
-        newTodo = new Todo('new');
+        newTodo = new Todo(4, 'new');
         filterState.setVisibilityFilter('completed');
         presenter.attach(view);
         jest.clearAllMocks();
