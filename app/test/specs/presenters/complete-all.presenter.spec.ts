@@ -2,7 +2,7 @@ import { bootstrap } from '../../../src/bootstrap';
 import { Injector } from '../../../src/framework';
 import { CompleteAllPresenter } from '../../../src/presenters';
 import { ICompleteAllView } from '../../../src/views';
-import { TodosState, AppState, Todo } from '../../../src/model';
+import { TodosState, Todo } from '../../../src/model';
 
 import * as completaAllViewMock from '../../mocks/views/complete-all-view.mock';
 import * as storageMock from '../../mocks/infrastructure/storage.mock';
@@ -82,22 +82,21 @@ describe('CompleteAllPresenter', () => {
   });
 
   describe('User actions', () => {
-    let appState: AppState;
-
     describe('On click complete all checkbox', () => {
       describe('when there are active todos', () => {
         beforeEach(() => {
           todosState = Injector.resolve<TodosState>(TodosState);
           todosState.initialize([activeTodo, completedTodo, activeTodo2]);
           presenter.attach(view);
-          appState = Injector.resolve<AppState>(AppState);
           jest.clearAllMocks();
         });
 
         test('completes all todos', () => {
           presenter.completeAll();
 
-          expect(appState.areAllCompleted).toBe(true);
+          expect(todosState.state[0].isCompleted).toBe(true);
+          expect(todosState.state[1].isCompleted).toBe(true);
+          expect(todosState.state[2].isCompleted).toBe(true);
         });
       });
 
@@ -106,14 +105,13 @@ describe('CompleteAllPresenter', () => {
           todosState = Injector.resolve<TodosState>(TodosState);
           todosState.initialize([completedTodo]);
           presenter.attach(view);
-          appState = Injector.resolve<AppState>(AppState);
           jest.clearAllMocks();
         });
 
         test('activates all todos', () => {
           presenter.completeAll();
 
-          expect(appState.todos[0].isCompleted).toBe(false);
+          expect(todosState.state[0].isCompleted).toBe(false);
         });
       });
     });

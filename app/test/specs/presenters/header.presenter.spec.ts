@@ -2,7 +2,7 @@ import { bootstrap } from '../../../src/bootstrap';
 import { Injector } from '../../../src/framework';
 import { HeaderPresenter } from '../../../src/presenters';
 import { IHeaderView } from '../../../src/views';
-import { TodosState, AppState } from '../../../src/model';
+import { TodosState } from '../../../src/model';
 
 import * as headerViewMock from '../../mocks/views/header-view.mock';
 import * as storageMock from '../../mocks/infrastructure/storage.mock';
@@ -33,11 +33,9 @@ describe('HeaderPresenter', () => {
 
   describe('User actions', () => {
     let todosState: TodosState;
-    let appState: AppState;
 
     beforeEach(() => {
       presenter.attach(view);
-      appState = Injector.resolve<AppState>(AppState);
       todosState = Injector.resolve<TodosState>(TodosState);
       todosState.initialize([]);
     });
@@ -49,7 +47,7 @@ describe('HeaderPresenter', () => {
 
           presenter.addTodo(newTodoTitle);
 
-          expect(appState.todos[0].title).toBe(newTodoTitle);
+          expect(todosState.state[0].title).toBe(newTodoTitle);
         });
 
         test('empties the input', () => {
@@ -58,7 +56,7 @@ describe('HeaderPresenter', () => {
           presenter.addTodo(newTodoTitle);
 
           expect(view.emptyTodoInput).toHaveBeenCalled();
-          expect(appState.todos[0].title).toBe(newTodoTitle);
+          expect(todosState.state[0].title).toBe(newTodoTitle);
         });
       });
 
@@ -68,7 +66,7 @@ describe('HeaderPresenter', () => {
 
           presenter.addTodo(newTodoTitle);
 
-          expect(appState.todos.length).toBe(0);
+          expect(todosState.state.length).toBe(0);
         });
       });
     });

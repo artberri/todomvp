@@ -1,7 +1,7 @@
-import { CommandHandler, Service } from '../../../framework';
-import { ToggleTodoCommand } from '../commands';
-import { TodosState } from '../../state';
-import { Todo } from '../../domain';
+import { CommandHandler, Service } from '../../../../framework';
+import { ToggleTodoCommand } from '../toggle-todo.command';
+import { TodosState } from '../../../state';
+import { Todo } from '../../../domain';
 
 @Service()
 export class ToggleTodoCommandHandler extends CommandHandler<Todo> {

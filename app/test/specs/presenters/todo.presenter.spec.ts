@@ -1,7 +1,7 @@
 import { bootstrap } from '../../../src/bootstrap';
 import { Injector } from '../../../src/framework';
 import { TodoPresenter } from '../../../src/presenters';
-import { Todo, FilterState, AppState, TodosState } from '../../../src/model';
+import { Todo, FilterState, TodosState } from '../../../src/model';
 import { ITodoView } from '../../../src/views';
 
 import * as todoViewMock from '../../mocks/views/todo-view.mock';
@@ -105,13 +105,10 @@ describe('TodoPresenter', () => {
   });
 
   describe('User actions', () => {
-    let appState: AppState;
-
     describe('On double click', () => {
       beforeEach(() => {
         view.todo = activeTodo;
         presenter.attach(view);
-        appState = Injector.resolve<AppState>(AppState);
         jest.clearAllMocks();
       });
 
@@ -127,14 +124,13 @@ describe('TodoPresenter', () => {
         beforeEach(() => {
           view.todo = activeTodo;
           presenter.attach(view);
-          appState = Injector.resolve<AppState>(AppState);
           jest.clearAllMocks();
         });
 
         test('completes the todo', () => {
           presenter.toggleTodo();
 
-          expect(appState.todos[0].isCompleted).toBe(true);
+          expect(todosState.state[0].isCompleted).toBe(true);
         });
 
         test('checks the checkbox', () => {
@@ -148,14 +144,13 @@ describe('TodoPresenter', () => {
         beforeEach(() => {
           view.todo = completedTodo;
           presenter.attach(view);
-          appState = Injector.resolve<AppState>(AppState);
           jest.clearAllMocks();
         });
 
         test('activates the todo', () => {
           presenter.toggleTodo();
 
-          expect(appState.todos[1].isCompleted).toBe(false);
+          expect(todosState.state[1].isCompleted).toBe(false);
         });
 
         test('unchecks the checkbox', () => {
@@ -170,14 +165,13 @@ describe('TodoPresenter', () => {
       beforeEach(() => {
         view.todo = activeTodo;
         presenter.attach(view);
-        appState = Injector.resolve<AppState>(AppState);
         jest.clearAllMocks();
       });
 
       test('removes the todo', () => {
         presenter.removeTodo();
 
-        expect(appState.todos).toStrictEqual([completedTodo, activeTodo2]);
+        expect(todosState.state).toStrictEqual([completedTodo, activeTodo2]);
       });
     });
 
@@ -185,7 +179,6 @@ describe('TodoPresenter', () => {
       beforeEach(() => {
         view.todo = activeTodo;
         presenter.attach(view);
-        appState = Injector.resolve<AppState>(AppState);
         jest.clearAllMocks();
       });
 
@@ -195,7 +188,7 @@ describe('TodoPresenter', () => {
 
         presenter.editTodo(newTodoTitle);
 
-        expect(appState.todos[0].title).toBe(newTodoTitle);
+        expect(todosState.state[0].title).toBe(newTodoTitle);
       });
 
       test('sets view mode', () => {

@@ -1,6 +1,6 @@
-import { CommandHandler, Service } from '../../../framework';
-import { EditTodoCommand, IEditTodoPayload } from '../commands';
-import { TodosState } from '../../state';
+import { CommandHandler, Service } from '../../../../framework';
+import { EditTodoCommand, IEditTodoPayload } from '../edit-todo.command';
+import { TodosState } from '../../../state';
 
 @Service()
 export class EditTodoCommandHandler extends CommandHandler<IEditTodoPayload> {

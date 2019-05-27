@@ -1,7 +1,7 @@
 import { bootstrap } from '../../../src/bootstrap';
 import { Injector } from '../../../src/framework';
 import { TodosPresenter } from '../../../src/presenters';
-import { Todo, TodosState, FilterState, AppState } from '../../../src/model';
+import { Todo, TodosState, FilterState } from '../../../src/model';
 import { ITodosView } from '../../../src/views';
 
 import * as todosViewMock from '../../mocks/views/todos-view.mock';
@@ -11,7 +11,6 @@ describe('TodosPresenter', () => {
   let presenter: TodosPresenter;
   let todosState: TodosState;
   let filterState: FilterState;
-  let appState: AppState;
   let view: ITodosView;
   let activeTodo: Todo;
   let activeTodo2: Todo;
@@ -32,7 +31,6 @@ describe('TodosPresenter', () => {
       bootstrap(storageMock.TodoStorageMock);
       view = new todosViewMock.TodosViewMock();
       presenter = Injector.resolve<TodosPresenter>(TodosPresenter);
-      appState = Injector.resolve<AppState>(AppState);
       todosState = Injector.resolve<TodosState>(TodosState);
       filterState = Injector.resolve<FilterState>(FilterState);
       todosState.initialize([activeTodo, completedTodo, activeTodo2]);
@@ -45,7 +43,7 @@ describe('TodosPresenter', () => {
         presenter.attach(view);
 
         expect(view.setTodos).toHaveBeenCalledWith([activeTodo, completedTodo, activeTodo2]);
-        expect(appState.filter).toBe('none');
+        expect(filterState.state).toBe('none');
       });
     });
 
@@ -55,7 +53,7 @@ describe('TodosPresenter', () => {
         presenter.attach(view);
 
         expect(view.setTodos).toHaveBeenCalledWith([activeTodo, activeTodo2]);
-        expect(appState.filter).toBe('active');
+        expect(filterState.state).toBe('active');
       });
     });
 
@@ -65,7 +63,7 @@ describe('TodosPresenter', () => {
         presenter.attach(view);
 
         expect(view.setTodos).toHaveBeenCalledWith([completedTodo]);
-        expect(appState.filter).toBe('completed');
+        expect(filterState.state).toBe('completed');
       });
     });
   });

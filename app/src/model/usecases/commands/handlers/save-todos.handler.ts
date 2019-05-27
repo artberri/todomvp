@@ -1,6 +1,6 @@
-import { CommandHandler, Service } from '../../../framework';
-import { SaveTodosCommand } from '../commands';
-import { Todo, TodoStorageService } from '../../domain';
+import { CommandHandler, Service } from '../../../../framework';
+import { SaveTodosCommand } from '../save-todos.command';
+import { Todo, TodoStorageService } from '../../../domain';
 
 @Service()
 export class SaveTodosCommandHandler extends CommandHandler<Todo[]> {

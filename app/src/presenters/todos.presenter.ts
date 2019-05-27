@@ -1,6 +1,6 @@
 import { Service, BasePresenter, Mediator } from '../framework';
 import { ITodosView } from '../views';
-import { AppState, SetFilterCommand } from '../model';
+import { AppState, SetFilterCommand, GetVisibleTodosQuery } from '../model';
 
 @Service()
 export class TodosPresenter extends BasePresenter<ITodosView> {
@@ -13,6 +13,6 @@ export class TodosPresenter extends BasePresenter<ITodosView> {
 
   protected init(): void {
     this.mediator.send(new SetFilterCommand(this.view.filter));
-    this.state.subscribe(() => this.view.setTodos(this.state.visibleTodos));
+    this.state.subscribe(() => this.view.setTodos(this.mediator.send(new GetVisibleTodosQuery())));
   }
 }

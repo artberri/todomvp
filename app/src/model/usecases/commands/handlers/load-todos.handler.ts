@@ -1,7 +1,7 @@
-import { CommandHandler, Service } from '../../../framework';
-import { LoadTodosCommand } from '../commands';
-import { TodoStorageService } from '../../domain';
-import { TodosState } from '../../state';
+import { CommandHandler, Service } from '../../../../framework';
+import { LoadTodosCommand } from '../load-todos.command';
+import { TodoStorageService } from '../../../domain';
+import { TodosState } from '../../../state';
 
 @Service()
 export class LoadTodosCommandHandler extends CommandHandler<string> {

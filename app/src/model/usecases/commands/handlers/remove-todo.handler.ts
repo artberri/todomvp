@@ -1,7 +1,7 @@
-import { CommandHandler, Service } from '../../../framework';
-import { RemoveTodoCommand } from '../commands';
-import { TodosState } from '../../state';
-import { Todo } from '../../domain';
+import { CommandHandler, Service } from '../../../../framework';
+import { RemoveTodoCommand } from '../remove-todo.command';
+import { TodosState } from '../../../state';
+import { Todo } from '../../../domain';
 
 @Service()
 export class RemoveTodoCommandHandler extends CommandHandler<Todo> {

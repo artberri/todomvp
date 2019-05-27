@@ -1,7 +1,7 @@
 import { bootstrap } from '../../../src/bootstrap';
 import { Injector } from '../../../src/framework';
 import { FooterPresenter } from '../../../src/presenters';
-import { Todo, TodosState, AppState } from '../../../src/model';
+import { Todo, TodosState } from '../../../src/model';
 import { IFooterView } from '../../../src/views';
 
 import * as footerViewMock from '../../mocks/views/footer-view.mock';
@@ -114,8 +114,6 @@ describe('FooterPresenter', () => {
   });
 
   describe('User actions', () => {
-    let appState: AppState;
-
     beforeEach(() => {
       activeTodo = new Todo(1, 'Initially active todo');
       activeTodo2 = new Todo(3, 'Initially active todo2');
@@ -126,7 +124,6 @@ describe('FooterPresenter', () => {
       view = new footerViewMock.FooterViewMock();
       presenter = Injector.resolve<FooterPresenter>(FooterPresenter);
       todosState = Injector.resolve<TodosState>(TodosState);
-      appState = Injector.resolve<AppState>(AppState);
       todosState.initialize([activeTodo, completedTodo, activeTodo2]);
       presenter.attach(view);
       jest.clearAllMocks();
@@ -136,7 +133,7 @@ describe('FooterPresenter', () => {
       test('removes all completed todos', () => {
         presenter.clearCompleted();
 
-        expect(appState.todos).toStrictEqual([activeTodo, activeTodo2]);
+        expect(todosState.state).toStrictEqual([activeTodo, activeTodo2]);
       });
     });
   });

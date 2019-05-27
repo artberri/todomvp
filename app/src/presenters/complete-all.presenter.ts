@@ -1,6 +1,6 @@
 import { Mediator, Service, BasePresenter } from '../framework';
 import { ICompleteAllView } from '../views';
-import { AppState, CompleteAllCommand } from '../model';
+import { AppState, CompleteAllCommand, AreAllTodosCompletedQuery } from '../model';
 
 @Service()
 export class CompleteAllPresenter extends BasePresenter<ICompleteAllView> {
@@ -13,7 +13,7 @@ export class CompleteAllPresenter extends BasePresenter<ICompleteAllView> {
 
   protected init(): void {
     this.state.subscribe(() => {
-      this.state.areAllCompleted ? this.view.check() : this.view.uncheck();
+      this.mediator.send(new AreAllTodosCompletedQuery()) ? this.view.check() : this.view.uncheck();
     });
   }
 

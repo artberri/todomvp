@@ -1,5 +1,5 @@
 import { Service, BasePresenter, Mediator } from '../framework';
-import { AppState, LoadTodosCommand, SaveTodosCommand } from '../model';
+import { AppState, LoadTodosCommand, SaveTodosCommand, GetAllTodosQuery, ContainsAnyTodosQuery } from '../model';
 import { IAppView } from '../views';
 
 @Service()
@@ -14,8 +14,8 @@ export class AppPresenter extends BasePresenter<IAppView> {
   protected init(): void {
     this.mediator.send(new LoadTodosCommand());
     this.state.subscribe(() => {
-      this.mediator.send(new SaveTodosCommand(this.state.todos));
-      this.state.anyTodos ? this.view.showList() : this.view.hideList();
+      this.mediator.send(new SaveTodosCommand(this.mediator.send(new GetAllTodosQuery())));
+      this.mediator.send(new ContainsAnyTodosQuery()) ? this.view.showList() : this.view.hideList();
     });
   }
 }

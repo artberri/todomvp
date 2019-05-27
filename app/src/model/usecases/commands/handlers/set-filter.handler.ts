@@ -1,6 +1,6 @@
-import { CommandHandler, Service } from '../../../framework';
-import { SetFilterCommand } from '../commands';
-import { TodoFilterType, FilterState } from '../../state';
+import { CommandHandler, Service } from '../../../../framework';
+import { SetFilterCommand } from '../set-filter.command';
+import { TodoFilterType, FilterState } from '../../../state';
 
 @Service()
 export class SetFilterCommandHandler extends CommandHandler<TodoFilterType> {

@@ -1,6 +1,6 @@
 import { Service, BasePresenter, Mediator } from '../framework';
 import { IFooterView } from '../views';
-import { AppState, ClearCompletedCommand } from '../model';
+import { AppState, ClearCompletedCommand, GetActiveTodoCountQuery, ContainsAnyCompletedTodosQuery } from '../model';
 
 @Service()
 export class FooterPresenter extends BasePresenter<IFooterView> {
@@ -13,8 +13,8 @@ export class FooterPresenter extends BasePresenter<IFooterView> {
 
   protected init(): void {
     this.state.subscribe(() => {
-      this.view.setActiveTodoCount(this.state.activeTodoCount);
-      this.state.anyCompletedTodos ? this.view.showClearCompletedLink() : this.view.hideClearCompletedLink();
+      this.view.setActiveTodoCount(this.mediator.send(new GetActiveTodoCountQuery()));
+      this.mediator.send(new ContainsAnyCompletedTodosQuery()) ? this.view.showClearCompletedLink() : this.view.hideClearCompletedLink();
     });
   }
 

@@ -1,2 +1,2 @@
-export * from './handlers';
 export * from './commands';
+export * from './queries';

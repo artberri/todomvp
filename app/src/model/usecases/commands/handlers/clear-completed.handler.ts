@@ -1,6 +1,6 @@
-import { CommandHandler, Service } from '../../../framework';
-import { ClearCompletedCommand } from '../commands';
-import { TodosState } from '../../state';
+import { CommandHandler, Service } from '../../../../framework';
+import { ClearCompletedCommand } from '../clear-completed.command';
+import { TodosState } from '../../../state';
 
 @Service()
 export class ClearCompletedCommandHandler extends CommandHandler<string> {

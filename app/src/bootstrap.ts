@@ -12,7 +12,13 @@ import {
   CompleteAllCommandHandler,
   ToggleTodoCommandHandler,
   RemoveTodoCommandHandler,
-  EditTodoCommandHandler
+  EditTodoCommandHandler,
+  GetVisibleTodosQueryHandler,
+  GetAllTodosQueryHandler,
+  AreAllTodosCompletedQueryHandler,
+  ContainsAnyCompletedTodosQueryHandler,
+  ContainsAnyTodosQueryHandler,
+  GetActiveTodoCountQueryHandler
 } from './model';
 import {
   AppPresenter,
@@ -43,6 +49,12 @@ export const bootstrap = (storageServiceImplementation: Type<TodoStorageService>
   mediator.registerHandler(ToggleTodoCommandHandler);
   mediator.registerHandler(RemoveTodoCommandHandler);
   mediator.registerHandler(EditTodoCommandHandler);
+  mediator.registerHandler(GetVisibleTodosQueryHandler);
+  mediator.registerHandler(GetAllTodosQueryHandler);
+  mediator.registerHandler(AreAllTodosCompletedQueryHandler);
+  mediator.registerHandler(ContainsAnyCompletedTodosQueryHandler);
+  mediator.registerHandler(ContainsAnyTodosQueryHandler);
+  mediator.registerHandler(GetActiveTodoCountQueryHandler);
   Injector.registerInstance(mediator, Mediator);
 
   // Presenters
