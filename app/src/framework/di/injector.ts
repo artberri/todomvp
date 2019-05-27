@@ -1,6 +1,7 @@
 // tslint:disable:ban-types
 import 'reflect-metadata';
-import { Type } from './types';
+
+export type Type<T = {}> = new(...args: any[]) => T;
 
 export interface IServiceData {
   implementation?: Type<any>;

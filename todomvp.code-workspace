@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "vue"
+		},
+		{
+			"path": "react"
 		}
 	],
 	"settings": {}

@@ -1,7 +1,6 @@
 // tslint:disable:variable-name
 // tslint:disable:ban-types
-import { Type } from './types';
-import { Injector } from './injector';
+import { Injector, Type} from './injector';
 
 type GenericClassDecorator<T> = (target: T) => void;
 

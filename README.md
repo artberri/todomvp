@@ -23,8 +23,8 @@ with the least effort possible.
 
 This is just an example created by [Alberto Varela](https://www.berriart.com/)
 in Typescript without any other dependency library. To demonstrate how it can
-helps switching between frameworks it includes two implementations:
-Vue and Angular.
+helps switching between frameworks it includes three implementations:
+Vue, Angular and React.
 
 If you want to dig deeper in the <abbr title="Model View Presenter">MVP</abbr>
 pattern, better than looking into this repository is to read about its
@@ -54,6 +54,8 @@ todomvc
 │
 │
 └───angular   -> Angular view implementation
+│
+└───react     -> React view implementation
 │
 └───vue       -> Vue view implementation
 ```
@@ -91,11 +93,29 @@ npm install
 npm run serve
 ```
 
-## In progress
+### React
 
-Remaining todos:
+Implementation using React.
 
-- Create React app
+React does not allow to include files outside the src folder, this is why you need to build
+the app project first for React implementation. In this repo the 'core' files are outside the
+react project folder, what is not the normal way to create an app.
+
+```bash
+cd app
+npm install
+npm run build
+cd ..
+```
+
+Once the app files are compiled they will be included from the symlink `react/src/core/`.
+Finally:
+
+```bash
+cd vue
+npm install
+npm run serve
+```
 
 ## License
 
