@@ -1,7 +1,8 @@
 # TodoMVP
 
-[![Build Status](https://travis-ci.org/artberri/todomvp.svg?branch=master)](https://travis-ci.org/artberri/todomvp)
-[![Coverage Status](https://coveralls.io/repos/github/artberri/todomvp/badge.svg)](https://coveralls.io/github/artberri/todomvp)
+> 📌 **Deprecation Notice**
+>
+> This repository is deprecated and no more work will be done on this by [Alberto Varela](https://github.com/artberri).
 
 Developers these days are spoiled with choice when it comes to selecting an MV*
 framework for structuring and organizing their JavaScript web apps.
